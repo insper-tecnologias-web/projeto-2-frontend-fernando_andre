@@ -1,0 +1,41 @@
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.appbar{
+  display: flex;
+  width: 100%; /* Define a largura para ocupar 100% da largura da tela */
+  height: 50%;
+  flex-direction: row;
+  background-color: #f7d736;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19);
+}
+
+.logo{
+  width: 80px;
+  height: 50px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.subtitle{
+  align-self: center;
+}
+
+.card-container{
+    display: flex;
+    flex-wrap: wrap; /* Permite que os cards quebrem para a próxima linha */
+    justify-content: space-around; /* Alinha os cards no centro horizontalmente */
+    width: 100%;
+    margin: auto;
+  }
+
+  
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  

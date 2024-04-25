@@ -1,0 +1,28 @@
+.card{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100px;
+    width: 200px;
+    margin: 10px;
+    border-radius: 5px;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.21);
+    padding: 1rem;
+  }
+
+.card-title {
+margin-top: -3px; /* Remover qualquer margem superior padrão */
+align-self: flex-start; /* Alinhar o título ao topo */
+font-weight: bold;
+font-family: 'Permanent Marker', sans-serif;
+font-size: 1.2rem;
+width: 100%;
+  } 
+
+.card-content{
+margin-top: 20px;
+font-family: 'Permanent Marker', sans-serif;
+font-size: 0.9rem;
+color:#5c5b5b;
+  }
