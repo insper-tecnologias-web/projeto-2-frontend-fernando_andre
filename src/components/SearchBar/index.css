@@ -1,0 +1,18 @@
+.search-bar form {
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.search-bar input, .search-bar button {
+  margin: 5px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.result {
+  text-align: center;
+  color: green;
+  font-size: 18px;
+  margin-top: 20px;
+}

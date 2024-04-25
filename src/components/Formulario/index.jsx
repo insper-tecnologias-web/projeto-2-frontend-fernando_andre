@@ -15,7 +15,7 @@ export default function Formulario(props) {
         }
 
         axios
-            .post("http://localhost:8000/api/notes/", data)
+            .post("http://127.0.0.1:8000/api/moedas", data)
             .then((response) => {
                 props.loadNotes();
                 setTitulo("");
