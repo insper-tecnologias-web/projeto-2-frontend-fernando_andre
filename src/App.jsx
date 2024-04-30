@@ -8,6 +8,7 @@ function App() {
   const [cryptos, setCryptos] = useState([]);
   const [filteredCryptos, setFilteredCryptos] = useState([]);
   const [favorites, setFavorites] = useState(new Set()); // Usando um Set para manter os favoritos
+  const [pagFavorites, setPagFavorites] = useState(false) // botap boleano para mostrar os favoritos
 
   const carregaCriptomoedas = () => {
     axios.get("http://127.0.0.1:8000/api/moedas/")
@@ -18,7 +19,10 @@ function App() {
          .catch(err => console.error("Failed to load cryptos:", err));
   };
 
-
+  const carregaFavoritos = () => {
+    const result = axios.get("http://127.0.0.1:8000/api/favoritar/")
+    setFavorites(result)
+};
 
   useEffect(() => {
     carregaCriptomoedas();
