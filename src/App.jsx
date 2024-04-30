@@ -30,6 +30,7 @@ function App() {
 
   useEffect(() => {
     carregaCriptomoedas();
+    carregaFavoritos();
   }, []);
 
   const handleSearch = (searchTerm) => {
