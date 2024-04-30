@@ -16,7 +16,9 @@ function App() {
            setFilteredCryptos(res.data);  // Inicializa com todos os dados
          })
          .catch(err => console.error("Failed to load cryptos:", err));
-  }
+  };
+
+
 
   useEffect(() => {
     carregaCriptomoedas();
@@ -51,6 +53,12 @@ function App() {
       <AppBar />
       <main className="container">
         <SearchBar onSearch={handleSearch} />
+        <button  
+          className="favoritos"
+          onClick={()=>carregaFavoritas()}
+        >
+          Favoritos
+        </button>
         <div className="card-container">
           {filteredCryptos.map((crypto) => (
             <div key={`crypto__${crypto.symbol}`} className="card">
