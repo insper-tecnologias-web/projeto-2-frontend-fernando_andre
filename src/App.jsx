@@ -19,21 +19,23 @@ function App() {
          .catch(err => console.error("Failed to load cryptos:", err));
   };
 
-  const carregaFavoritos = () => {
-    const result = axios.get("http://127.0.0.1:8000/api/favoritar/")
-    setFavorites(result)
+  const carregaFavoritos = async () => {
+    const result = await axios.get("http://127.0.0.1:8000/api/favoritar/");
+    console.log(result.data)
+    setFavorites(new Set(result.data)); // Assumindo que a resposta é uma lista de objetos com 'symbol'
   };
+
 
   const toggleBoolean = () => {
     setPagFavorites(!pagFavorites);
+    carregaFavoritos();
   };
 
   useEffect(() => {
     carregaCriptomoedas();
-    carregaFavoritos();
   }, []);
 
-  const handleSearch = (searchTerm) => {
+  const handleSearch = async (searchTerm) => {
     if (searchTerm) {
       const results = cryptos.filter(crypto => crypto.symbol.includes(searchTerm));
       setFilteredCryptos(results);
@@ -56,37 +58,56 @@ function App() {
       })
   };
   
+  if (pagFavorites) {
+    return (
+      <>
+        <AppBar />
+        <main className="container">
+          <SearchBar onSearch={handleSearch} />
+          <div className="card-container">
+            {Array.from(favorites).map((crypto) => (
+              <div key={`crypto__${crypto.symbol}`} className="card">
+                <h3 className="card-title">{crypto.nome}</h3>
+                <div className="card-content">Price: ${crypto.preco}</div>
+              </div>
+            ))}
+          </div>
+        </main>
+      </>
+    );
+  }
+  else {
+    return (
+      <>
+        <AppBar />
+        <main className="container">
+          <SearchBar onSearch={handleSearch} />
+          <button  
+            className="favoritos"
+            onClick={()=>toggleBoolean()}
+          >
+            Favoritos
+          </button>
+          <div className="card-container">
+            {filteredCryptos.map((crypto, index) => (
+              <div key={crypto.symbol || `crypto__${index}`} className="card">
+                <h3 className="card-title">
+                  {crypto.symbol}
+                  <button 
+                      className={`favorite-button ${favorites && favorites.has(crypto.symbol) ? "favorited" : ""}`}
+                      onClick={() => toggleFavorite(crypto.symbol)}
+                  >
+                      {favorites && favorites.has(crypto.symbol) ? "★" : "☆"}
+                  </button>
+                </h3>
+                <div className="card-content">Price: ${crypto.price || 'Unavailable'}</div>
+              </div>
+            ))}
+          </div>
 
-  return (
-    <>
-      <AppBar />
-      <main className="container">
-        <SearchBar onSearch={handleSearch} />
-        <button  
-          className="favoritos"
-          onClick={()=>carregaFavoritas()}
-        >
-          Favoritos
-        </button>
-        <div className="card-container">
-          {filteredCryptos.map((crypto) => (
-            <div key={`crypto__${crypto.symbol}`} className="card">
-              <h3 className="card-title">
-                {crypto.symbol}
-                <button 
-                  className={`favorite-button ${favorites.has(crypto.symbol) ? "favorited" : ""}`}
-                  onClick={() => toggleFavorite(crypto.symbol)}
-                >
-                  {favorites.has(crypto.symbol) ? "★" : "☆"}
-                </button>
-              </h3>
-              <div className="card-content">Price: ${crypto.price}</div>
-            </div>
-          ))}
-        </div>
-      </main>
-    </>
-  );
+        </main>
+      </>
+    );
+  }
 }
-
 export default App;
