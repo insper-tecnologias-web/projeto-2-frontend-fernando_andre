@@ -22,7 +22,11 @@ function App() {
   const carregaFavoritos = () => {
     const result = axios.get("http://127.0.0.1:8000/api/favoritar/")
     setFavorites(result)
-};
+  };
+
+  const toggleBoolean = () => {
+    setPagFavorites(!pagFavorites);
+  };
 
   useEffect(() => {
     carregaCriptomoedas();
