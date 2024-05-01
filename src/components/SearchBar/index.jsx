@@ -14,6 +14,7 @@ export default function SearchBar({ onSearch }) {
         <form onSubmit={handleSearch}>
             <input
             type="text"
+            className="search-input"
             placeholder="Digite o símbolo da cripto"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value.toUpperCase())}

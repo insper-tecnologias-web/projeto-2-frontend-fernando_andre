@@ -12,6 +12,16 @@
     flex-direction: column;
     align-items: center;
   }
+
+.voltar{
+    margin-top: 1.5rem;
+    color: rgb(143, 128, 45);
+    background-color: rgb(242, 225, 131);
+    border-width: 1px;
+    font-family: 'sans-serif';
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+}
   
   .card{
     position: relative;
@@ -30,14 +40,14 @@
 margin-top: -3px; /* Remover qualquer margem superior padrão */
 align-self: flex-start; /* Alinhar o título ao topo */
 font-weight: bold;
-font-family: 'Permanent Marker', sans-serif;
+font-family: 'sans-serif';
 font-size: 1.2rem;
 width: 100%;
   } 
 
 .card-content{
 margin-top: 20px;
-font-family: 'Permanent Marker', sans-serif;
+font-family: 'sans-serif';
 font-size: 0.9rem;
 color:#5c5b5b;
   }
@@ -55,5 +65,10 @@ color: darkorange;
 }
 
 .favoritos{
-    color: darkorange;
+    color: rgb(143, 128, 45);
+    background-color: rgb(242, 225, 131);
+    border-width: 1px;
+    font-family: 'sans-serif';
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
 }

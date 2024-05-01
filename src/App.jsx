@@ -20,20 +20,33 @@ function App() {
   };
 
   const carregaFavoritos = async () => {
-    const result = await axios.get("http://127.0.0.1:8000/api/favoritar/");
-    console.log(result.data)
-    setFavorites(new Set(result.data)); // Assumindo que a resposta é uma lista de objetos com 'symbol'
+    try {
+      const response = await axios.get("http://127.0.0.1:8000/api/favoritar/");
+      console.log("Favoritos carregados:", response.data);
+      setFavorites(new Set(response.data));  // Cria um Set com os símbolos válidos
+    } catch (error) {
+      console.error("Erro ao carregar favoritos:", error);
+    }
   };
 
+  useEffect(() => {
+    // Carrega as criptomoedas e os favoritos iniciais
+    carregaCriptomoedas();
+    const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    setFavorites(new Set(savedFavorites));
+    console.log("Favoritos carregados do localStorage:", favorites);
+  }, []);
 
   const toggleBoolean = () => {
     setPagFavorites(!pagFavorites);
     carregaFavoritos();
   };
 
-  useEffect(() => {
-    carregaCriptomoedas();
-  }, []);
+  const voltar_inicio = () => {
+    setPagFavorites(!pagFavorites);
+    const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    setFavorites(new Set(savedFavorites));
+  };  
 
   const handleSearch = async (searchTerm) => {
     if (searchTerm) {
@@ -49,12 +62,16 @@ function App() {
       .then(res => {
         // Atualiza o estado local com base na resposta do servidor
         const newFavorites = new Set(favorites);
-        if (newFavorites.has(symbol)) {
+        if (newFavorites.has(symbol) || pagFavorites) {
+          console.log(`Removing ${symbol} from favorites`);
           newFavorites.delete(symbol);
+          carregaFavoritos();
         } else {
+          console.log(`Adding ${symbol} to favorites`);
           newFavorites.add(symbol);
         }
         setFavorites(newFavorites);
+        localStorage.setItem('favorites', JSON.stringify(Array.from(newFavorites)));
       })
   };
   
@@ -65,13 +82,27 @@ function App() {
         <main className="container">
           <SearchBar onSearch={handleSearch} />
           <div className="card-container">
-            {Array.from(favorites).map((crypto) => (
-              <div key={`crypto__${crypto.symbol}`} className="card">
-                <h3 className="card-title">{crypto.nome}</h3>
+            {Array.from(favorites).map((crypto, index) => (
+              console.log(favorites),
+              <div key={crypto.nome || `crypto__${index}`} className="card">
+                <h3 className="card-title">
+                  {crypto.nome}
+                  <button 
+                    className="favorite-button favorited"
+                    onClick={() => toggleFavorite(crypto.nome)}
+                  >
+                    ★  
+                  </button>
+                </h3>
                 <div className="card-content">Price: ${crypto.preco}</div>
               </div>
             ))}
           </div>
+          <button 
+            className="voltar"
+            onClick={() => voltar_inicio()}>
+            Voltar
+          </button>
         </main>
       </>
     );

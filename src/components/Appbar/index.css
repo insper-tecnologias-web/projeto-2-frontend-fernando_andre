@@ -7,7 +7,7 @@ body {
   width: 100%; /* Define a largura para ocupar 100% da largura da tela */
   height: 50%;
   flex-direction: row;
-  background-color: #f7d736;
+  background-color: rgb(242, 225, 131);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19);
 }
 
@@ -20,9 +20,16 @@ body {
   margin-right: 10px;
 }
 
-.subtitle{
-  align-self: center;
+.subtitle {
+  text-align: center;
+  font-size: 3rem;
+  color: rgb(143, 128, 45);
+  font-weight: bold;
+  font-family: 'sans-serif';
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra para dar um destaque */
+  margin: 20px;
 }
+
 
 .card-container{
     display: flex;

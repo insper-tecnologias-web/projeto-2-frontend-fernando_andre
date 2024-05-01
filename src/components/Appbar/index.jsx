@@ -3,8 +3,7 @@ import "./index.css";
 export default function AppBar() {
     return (
         <div className="appbar">
-            <img src="/logo-getit (1).png" className="logo" />
-            <span className="subtitle">Como o Post-it, mas com outro verbo</span>
+            <span className="subtitle">CRYPTO COLLECTOR</span>
         </div>
     );
 }
